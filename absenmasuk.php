@@ -121,6 +121,22 @@ if (!isset($_SESSION['username'])) {
     </ul>
   </nav>
 
+  <nav>
+    <div class="logo">
+      <img src="kanesa.png" width="50px" height="50px">
+      <h2>SMKN 1 KEPANJEN</h2>
+    </div>
+    <ul>
+      <li><a href="index.php"><i class='bx bxs-home'></i> Home</a></li>
+      <li><a href="absenmasuk.php"><i class='bx bxs-user-circle'></i> Absen Masuk</a></li>
+      <li><a href="absenpulang.php"><i class='bx bxs-message-dots'></i> Absen Pulang</a></li>
+      <li><a href="datasiswa.php"><i class='bx bxs-bar-chart-alt-2'></i> Data Absensi</a></li>
+      <li><a href="setting_jam_kerja.php"><i class='bx bx-log-in'></i>Master Jadwal</a></li>
+      <li><a href="contact.php"><i class='bx bxs-cog'></i> Contact</a></li>
+      <li><a href="logout.php"><i class='bx bx-log-in'></i> Logout</a></li>
+    </ul>
+  </nav>
+
   <div class="content">
     <div class="absen-box">
         <h1>Absen Masuk SMKN 1 Kepanjen</h1>
