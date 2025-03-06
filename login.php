@@ -5,7 +5,6 @@ $username = "root";
 $password = "";
 $dbname = "db_apk2";
 
-// Perbaikan: Gunakan mysqli_connect untuk membuat koneksi
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
@@ -21,15 +20,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        $sql = "SELECT * FROM tb_login WHERE username = '$username' AND password = '$password'";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            $_SESSION['username'] = $username;
-            header("Location: index.php");
-            exit();
+        // Login admin
+        if ($username === "admin") {
+            $adminPassword = "admin123";
+            if ($password === $adminPassword) {
+                $_SESSION['username'] = $username;
+                $_SESSION['role'] = 'admin';
+                header("Location: index.php");
+                exit();
+            } else {
+                echo "<script>alert('Username atau password salah.');</script>";
+            }
         } else {
-            echo "<script>alert('Username atau password salah.');</script>";
+            // siswa
+            $sql = "SELECT * FROM tb_login WHERE username = '$username'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                $sql = "SELECT * FROM tb_login WHERE username = '$username' AND password = '$password'";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    $_SESSION['username'] = $username;
+                    $_SESSION['role'] = 'siswa';
+                    header("Location: listmasuk.php");
+                    exit();
+                } else {
+                    echo "<script>alert('Username atau password salah.');</script>";
+                }
+            } else {
+                // login guru
+                $sql = "SELECT * FROM tb_loginguru WHERE nip = '$username' AND password = '$password'";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    $_SESSION['username'] = $username;
+                    $_SESSION['role'] = 'guru';
+                    header("Location: guru.php"); 
+                    exit();
+                } else {
+                    echo "<script>alert('Username atau password salah.');</script>";
+                }
+            }
         }
     }
 }
