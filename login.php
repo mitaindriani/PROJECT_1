@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<script>alert('Username atau password salah.');</script>";
             }
         } else {
-            // siswa
+            // login siswa
             $sql = "SELECT * FROM tb_login WHERE username = '$username'";
             $result = $conn->query($sql);
 
